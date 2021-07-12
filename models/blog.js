@@ -15,6 +15,10 @@ const BlogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    preview: {
+        type: String,
+    },
+    images: [],
     draft: {
         type: Boolean,
         default: false

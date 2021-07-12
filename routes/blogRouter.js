@@ -1,6 +1,7 @@
 // modules
 const express = require("express")
 const router = express.Router()
+const { cors, corsWithOption } = require("../middlewares/cors")
 
 // controllers
     // GET controller //
@@ -17,28 +18,29 @@ var { delBlogs, delBlogById } = require("../controllers/blog/blogController")
 var { delComments, delCommentById } = require("../controllers/blog/commentController")
 
 router.route("/")
-.get(getBlogs)
-.post(postBlog)
-.put(updateBlog)
-.delete(delBlogs)
+.options(corsWithOption, (req, res, next) => res.sendStatus(200))
+.get(cors, getBlogs)
+.post(corsWithOption, postBlog)
+.put(corsWithOption, updateBlog)
+.delete(corsWithOption, delBlogs)
 
 router.route("/:id")
-.get(getBlogById)
-.post(postBlogById)
-.put(updateBlogById)
-.delete(delBlogById)
+.get(cors, getBlogById)
+.post(corsWithOption, postBlogById)
+.put(corsWithOption, updateBlogById)
+.delete(corsWithOption, delBlogById)
 
 router.route("/:id/comments")
-.get(getComments)
-.post(postComment)
-.put(updateComment)
-.delete(delComments)
+.get(cors, getComments)
+.post(corsWithOption, postComment)
+.put(corsWithOption, updateComment)
+.delete(corsWithOption, delComments)
 
 router.route("/:id/comments/:commentId")
-.get(getCommentById)
-.post(postCommentById)
-.put(updateCommentById)
-.delete(delCommentById)
+.get(cors, getCommentById)
+.post(corsWithOption, postCommentById)
+.put(corsWithOption, updateCommentById)
+.delete(corsWithOption, delCommentById)
 
 
 

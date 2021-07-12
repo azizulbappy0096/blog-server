@@ -1,13 +1,13 @@
 var express = require("express")
 var path = require('path');
 var logger = require('morgan');
-var cors = require("cors")
 var mongoose =require("mongoose")
 var cookieParser = require("cookie-parser")
 var session = require("express-session")
 var MongoDBStore = require("connect-mongodb-session")(session)
 var passport = require("passport")
 var authenticate = require("./authenticate")
+var socket = require("socket.io")
 require("dotenv").config()
 
 // --- routers
@@ -45,7 +45,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors())
 app.use(session({
     secret: "1234",
     resave: false,

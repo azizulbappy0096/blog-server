@@ -37,7 +37,7 @@ module.exports = {
             err.status = 404
             next(err)
           } else {
-            res.status(404).json({
+            res.status(200).json({
               status: "Gotcha",
               success: true,
               payload: {
@@ -98,7 +98,7 @@ module.exports = {
     const { id } = req.params;
     const { title, body } = req.body;
 
-    Blog.findByIdAndUpdate(id, { $set: { title, body } }, { new: true })
+    Blog.findByIdAndUpdate(id, { $set: req.body }, { new: true })
       .then(
         (doc) => {
           if(doc === null) {

@@ -3,6 +3,7 @@ const express = require("express")
 const router = express.Router()
 const multer = require("multer")
 const path = require("path")
+const { cors, corsWithOption } = require("../middlewares/cors")
 
 // controllers
 const { uploadImage } = require("../controllers/uploadController")
@@ -18,7 +19,7 @@ var storage = multer.diskStorage({
 })
 
 var upload = multer({ storage })
-
-router.post("/", upload.single("upload"), uploadImage)
+router.options("*", corsWithOption, (req, res, next) => res.sendStatus(200))
+router.post("/", corsWithOption, upload.single("upload"), uploadImage)
 
 module.exports = router

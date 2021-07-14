@@ -5,7 +5,7 @@ const BlogSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        // required: true
     },
     title: {
         type: String,
@@ -15,13 +15,17 @@ const BlogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    images: [],
     preview: {
         type: String,
     },
-    images: [],
+    previewImage: {
+        type: String,
+    },
+    tags: [],
     draft: {
         type: Boolean,
-        default: false
+        default: true
     },
     likes: {
         type: Number,

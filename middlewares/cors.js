@@ -16,7 +16,9 @@ const corsOptionsDelegate = (req, cb) => {
         }
     }else {
         corsOption = {
-            origin: true
+            origin: true,
+            credentials: true,
+            optionsSuccessStatus: 200
         }
     }
     console.log("cors", corsOption)

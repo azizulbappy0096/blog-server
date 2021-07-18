@@ -21,6 +21,17 @@ module.exports = {
         next(err);
       });
   },
+  getUser: (req, res, next) => {
+    res.setHeader("Content-Type", "application/json");
+    if(req.user) {
+      console.log(req.user)
+      res.status(200).json(req.user)
+    }else {
+      res.status(401).json({
+        status: "Not authenticated"
+      })
+    }
+  },
   registerLocal: (req, res, next) => {
     res.setHeader("Content-Type", "application/json");
     const { name, username, email, password } = req.body;
@@ -97,4 +108,9 @@ module.exports = {
       }
     })(req, res, next);
   },
+  logout: (req, res, next) => {
+    req.logout()
+    req.session.destroy()
+    res.send("Hello")
+  }
 };

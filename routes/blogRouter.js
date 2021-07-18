@@ -5,7 +5,7 @@ const { cors, corsWithOption } = require("../middlewares/cors")
 
 // controllers
     // GET controller //
-var { getBlogs, getBlogById } = require("../controllers/blog/blogController")
+var { getBlogs, getBlogById, getBlogByUser } = require("../controllers/blog/blogController")
 var { getComments, getCommentById } = require("../controllers/blog/commentController")
     // POST controller //
 var { postBlog, postBlogById } = require("../controllers/blog/blogController")
@@ -23,6 +23,10 @@ router.route("/")
 .post(corsWithOption, postBlog)
 .put(corsWithOption, updateBlog)
 .delete(corsWithOption, delBlogs)
+
+router.route("/")
+.options(corsWithOption, (req, res, next) => res.sendStatus(200))
+.get(corsWithOption, getBlogByUser)
 
 router.route("/:id")
 .options(corsWithOption, (req, res, next) => res.sendStatus(200))

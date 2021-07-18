@@ -7,17 +7,18 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    email: {
+    username: {
         type: String,
         required: true
     },
-
     followers: {
         type: Number,
         default: 0
     }
 }, {timestamps: true});
 
-UserSchema.plugin(passportLocalMongoose)
+UserSchema.plugin(passportLocalMongoose, {
+    usernameField: "email"
+})
 
 module.exports = mongoose.model("User", UserSchema)

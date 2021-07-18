@@ -7,6 +7,7 @@ module.exports = {
     // get all blogs
     res.setHeader("Content-Type", "application/json");
     Blog.find({})
+    .populate("author")
       .then(
         (docs) => {
           res.status(200).json({
@@ -51,12 +52,39 @@ module.exports = {
       .catch((err) => next(err));
   },
 
+  getBlogByUser: (req, res, next) => {
+    // get particluar blog by it's id
+    res.setHeader("Content-Type", "application/json");
+
+    Blog.find({ author: req.user })
+      .populate("author")
+      .then(
+        (docs) => {
+          console.log(docs);
+          if (docs === null) {
+            let err = new Error(`Blog - ${id} not found`)
+            err.status = 404
+            next(err)
+          } else {
+            res.status(200).json({
+              status: "Gotcha",
+              success: true,
+              payload: {
+                blog: docs,
+              },
+            });
+          }
+        },
+        (networkError) => next(networkError)
+      )
+      .catch((err) => next(err));
+  },
   // POST method
   postBlog: (req, res, next) => {
     // post a blog
     res.setHeader("Content-Type", "application/json");
     const { title, body, draft } = req.body;
-
+    console.log(req.user)
     Blog.create({
       author: req.user,
       title,

@@ -6,7 +6,7 @@ const User = require("./models/user");
 const LocalStrategy = require("passport-local").Strategy;
 
 // set up local strategy
-exports.Local = passport.use(new LocalStrategy({session: true},User.authenticate()));
+exports.Local = passport.use(new LocalStrategy({session: true, usernameField: "email"},User.authenticate()));
 passport.serializeUser((user, done) => {
     done(null, user._id)
 });
